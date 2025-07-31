@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const [advocates, setAdvocates] = useState([]);
@@ -47,6 +48,7 @@ export default function Home() {
       <br />
       <br />
       <div>
+        <Button>Click me</Button>
         <p>Search</p>
         <p>
           Searching for: <span id="search-term"></span>
