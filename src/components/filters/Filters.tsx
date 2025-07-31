@@ -1,107 +1,143 @@
 "use client";
 
-import React from "react";
 import { useStore } from "@/store";
-import { Button } from "@/components/ui/button";
+
+import {
+  Button,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Label,
+  Badge,
+  Input,
+} from "@/components/ui";
+
+import { useDebouncedCallback } from "use-debounce";
 
 export default function Filters() {
-  const { activeFilters, setFilter, clearFilter, clearAllFilters } = useStore();
+  const {
+    activeFilters,
+    searchTerm,
+    setFilter,
+    clearFilter,
+    clearAllFilters,
+    setSearchTerm,
+  } = useStore();
 
-  const degreeOptions = ["MSW", "PhD", "MD"];
+  const debouncedSetSearchTerm = useDebouncedCallback((value: string) => {
+    setSearchTerm(value);
+  }, 300);
 
-  const experienceOptions = [
-    { label: "0-2 years", value: "0-2" },
-    { label: "3-5 years", value: "3-5" },
-    { label: "6-10 years", value: "6-10" },
-    { label: "10+ years", value: "10+" },
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    // Update the input immediately for responsive UI
+    e.target.value = value;
+    // Debounce the actual search term update
+    debouncedSetSearchTerm(value);
+  };
+
+  const degreeOptions = [
+    { value: "all", label: "All Degrees" },
+    { value: "MSW", label: "MSW" },
+    { value: "PhD", label: "PhD" },
+    { value: "MD", label: "MD" },
   ];
 
-  const handleDegreeFilter = (degree: string) => {
-    if (activeFilters.degree === degree) {
+  const experienceOptions = [
+    { value: "all", label: "All Experience Levels" },
+    { value: "0-2", label: "0-2 years" },
+    { value: "3-5", label: "3-5 years" },
+    { value: "6-10", label: "6-10 years" },
+    { value: "10+", label: "10+ years" },
+  ];
+
+  const handleDegreeChange = (value: string) => {
+    if (value === "all") {
       clearFilter("degree");
     } else {
-      setFilter("degree", degree);
+      setFilter("degree", value);
     }
   };
 
-  const handleExperienceFilter = (experience: string) => {
-    if (activeFilters.yearsOfExperience === experience) {
+  const handleExperienceChange = (value: string) => {
+    if (value === "all") {
       clearFilter("yearsOfExperience");
     } else {
-      setFilter("yearsOfExperience", experience);
+      setFilter("yearsOfExperience", value);
     }
   };
 
   return (
-    <div className="space-y-4 p-4 bg-gray-50 rounded-lg">
+    <div className="space-y-4 p-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-900">Filters</h3>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={clearAllFilters}
-          className="text-xs"
-        >
+        <h3 className="text-lg font-semibold">Filters</h3>
+        <Button variant="secondary" onClick={clearAllFilters}>
           Clear All
         </Button>
       </div>
 
-      {/* Degree Filter */}
       <div className="space-y-2">
-        <label className="text-sm font-medium text-gray-700">Degree Type</label>
-        <div className="flex flex-wrap gap-2">
-          {degreeOptions.map((degree) => (
-            <Button
-              key={degree}
-              variant={activeFilters.degree === degree ? "default" : "outline"}
-              size="sm"
-              onClick={() => handleDegreeFilter(degree)}
-              className="text-xs"
-            >
-              {degree}
-            </Button>
-          ))}
-        </div>
+        <Label htmlFor="search">Search</Label>
+        <Input
+          id="search"
+          placeholder="Search by first name, last name, or city"
+          defaultValue={searchTerm}
+          onChange={handleSearchChange}
+        />
       </div>
 
-      {/* Experience Filter */}
       <div className="space-y-2">
-        <label className="text-sm font-medium text-gray-700">
-          Years of Experience
-        </label>
-        <div className="flex flex-wrap gap-2">
-          {experienceOptions.map((option) => (
-            <Button
-              key={option.value}
-              variant={
-                activeFilters.yearsOfExperience === option.value
-                  ? "default"
-                  : "outline"
-              }
-              size="sm"
-              onClick={() => handleExperienceFilter(option.value)}
-              className="text-xs"
-            >
-              {option.label}
-            </Button>
-          ))}
-        </div>
+        <Label htmlFor="degree">Degree Type</Label>
+        <Select
+          value={`${activeFilters.degree || "all"}`}
+          onValueChange={handleDegreeChange}
+        >
+          <SelectTrigger className="w-[100%]">
+            <SelectValue placeholder="All Degrees" />
+          </SelectTrigger>
+          <SelectContent>
+            {degreeOptions.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="experience">Years of Experience</Label>
+        <Select
+          value={`${activeFilters.yearsOfExperience || "all"}`}
+          onValueChange={handleExperienceChange}
+        >
+          <SelectTrigger className="w-[100%]">
+            <SelectValue placeholder="All Experience Levels" />
+          </SelectTrigger>
+          <SelectContent>
+            {experienceOptions.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
       {/* Active Filters Display */}
       {(activeFilters.degree || activeFilters.yearsOfExperience) && (
-        <div className="pt-2 border-t">
+        <div className="pt-2">
           <p className="text-xs text-gray-600 mb-2">Active Filters:</p>
           <div className="flex flex-wrap gap-1">
             {activeFilters.degree && (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">
-                Degree: {activeFilters.degree}
-              </span>
+              <Badge> Degree: {activeFilters.degree}</Badge>
             )}
             {activeFilters.yearsOfExperience && (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
+              <Badge variant="secondary">
                 Experience: {activeFilters.yearsOfExperience}
-              </span>
+              </Badge>
             )}
           </div>
         </div>
