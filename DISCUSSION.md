@@ -2,11 +2,56 @@
 
 ## Project Overview
 
-This is a Next.js-based advocates directory application built for Solace's candidate assignment. The application provides a comprehensive interface for browsing, searching, and filtering advocates with real-time health monitoring.
+This is a Next.js app built for Solace’s candidate assignment. It lets you browse, search, and filter advocates with a clean interface and real-time data updates.
+
+## Introduction
+
+This project lays the groundwork for a advocates directory built with modern web tech. It's kind of like a organized filing cabinet.
+
+The setup is clean, maintainable, and works well with React Query and Zustand. State is under control, concerns are well separated, and chaos has been (mostly) avoided.
+
+There’s still room for improvement. More tests wouldn’t hurt, server-side pagination would be a nice upgrade, and those lingering any types? Yeah, they know what they are. 🫣
+
+The app shows off:
+
+- Modern React patterns and best practices
+- Type-safe development with TypeScript
+- Responsive and accessible UI design
+- Real-time health monitoring
+- Efficient data fetching and caching
+
+With the identified improvements in place, this would be a production-ready application fit for real-world use. You may want to move that Postgres call to an AWS Lambda before taking it big time, unless, of course, your dream is to debug SQL in production logs at 2 a.m. 😂
+
+## Issues to Address
+
+### **1. TypeScript Issues**
+
+- **Two `any` Types**: Need to be replaced with proper types
+  - Database query type assertions in API routes
+  - Should create proper Drizzle ORM type definitions
+
+### **2. Pagination Architecture**
+
+- **Current**: Client-side pagination
+- **Problem**: Doesn't scale well with large datasets
+- **Solution**: Move to server-side pagination with cursor-based or offset-based approach
+
+### **3. Testing Coverage**
+
+- **Current**: No tests implemented
+- **Recommended**: Playwright for E2E testing
+- **Coverage Needed**:
+  - Search functionality
+  - Filter interactions
+  - Pagination behavior
+  - Health monitoring
+  - API endpoints
 
 ## Architecture Decisions
 
 ### **Frontend Framework**
+
+**Notes:** I've also updated all packages to their latest versions:
 
 - **Next.js 15**: Chosen for its modern features, App Router, and excellent developer experience
 - **React 19**: Latest React version with improved performance and concurrent features
@@ -20,11 +65,15 @@ This is a Next.js-based advocates directory application built for Solace's candi
 
 ### **Styling & UI**
 
+**Notes:** I focused primarily on implementation rather than design, spending most of my time building out the core functionality.
+
 - **Tailwind CSS v4**: Modern utility-first CSS framework
 - **shadcn/ui**: Component library built on Radix UI for accessibility
 - **Responsive Design**: Mobile-first approach with proper breakpoints
 
 ### **Data Fetching**
+
+**Notes:** API data is managed exclusively with React Query to avoid duplicating state between React Query and Redux.
 
 - **React Query**: For server state management, caching, and optimistic updates
 - **Debounced Search**: 300ms delay to prevent excessive API calls
@@ -87,7 +136,6 @@ This is a Next.js-based advocates directory application built for Solace's candi
 
 - **React Query Caching**: Automatic caching and background updates
 - **Debounced Search**: Reduces API calls during typing
-- **Memoized Selectors**: Prevents unnecessary re-renders
 
 ## Code Quality & Patterns
 
@@ -108,31 +156,6 @@ This is a Next.js-based advocates directory application built for Solace's candi
 - **RESTful Endpoints**: Clean URL structure
 - **Query Parameters**: Flexible filtering system
 - **Error Responses**: Consistent error handling
-
-## Issues to Address
-
-### **1. TypeScript Issues**
-
-- **Two `any` Types**: Need to be replaced with proper types
-  - Database query type assertions in API routes
-  - Should create proper Drizzle ORM type definitions
-
-### **2. Pagination Architecture**
-
-- **Current**: Client-side pagination
-- **Problem**: Doesn't scale well with large datasets
-- **Solution**: Move to server-side pagination with cursor-based or offset-based approach
-
-### **3. Testing Coverage**
-
-- **Current**: No tests implemented
-- **Recommended**: Playwright for E2E testing
-- **Coverage Needed**:
-  - Search functionality
-  - Filter interactions
-  - Pagination behavior
-  - Health monitoring
-  - API endpoints
 
 ## Future Improvements
 
@@ -183,17 +206,3 @@ This is a Next.js-based advocates directory application built for Solace's candi
 - **Error Boundaries**: React error boundaries for better UX
 - **Suspense**: React Suspense for loading states
 - **Code Splitting**: Lazy load components for better performance
-
-## Conclusion
-
-This project demonstrates a solid foundation for a advocates directory with modern web technologies. The architecture is scalable and maintainable, with clear separation of concerns and proper state management. The main areas for improvement are testing coverage, server-side pagination, and removing TypeScript `any` types.
-
-The application successfully showcases:
-
-- Modern React patterns and best practices
-- Type-safe development with TypeScript
-- Responsive and accessible UI design
-- Real-time health monitoring
-- Efficient data fetching and caching
-
-With the identified improvements implemented, this would be a production-ready application suitable for real-world use.
