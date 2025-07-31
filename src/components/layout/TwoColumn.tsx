@@ -9,6 +9,9 @@ export function TwoColumnLayout({ sideBar, content }: TwoColumnLayoutProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 min-h-screen">
       <aside className="md:col-span-1 border-r p-4">{sideBar}</aside>
+      <div className="p-4 bg-blue-500 text-white rounded shadow">
+        Tailwind is working!
+      </div>
       <main className="md:col-span-3 p-4">{content}</main>
     </div>
   );
