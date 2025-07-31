@@ -1,7 +1,9 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { ENDPOINTS } from "@/lib/endpoints";
+import { MESSAGES } from "@/lib/messages";
 import { useStore } from "@/store";
 import AdvocatesTable from "./AdvocatesTable";
 
@@ -38,18 +40,18 @@ export default function Advocates() {
       const response = await fetch(url);
 
       if (!response.ok) {
-        throw new Error("Failed to fetch advocates");
+        throw new Error(MESSAGES.ERROR.FETCH_ADVOCATES_ERROR);
       }
       return response.json();
     },
   });
 
   if (isLoading) {
-    return <div>Loading advocates...</div>;
+    return <div>{MESSAGES.LOADING.FETCH_ADVOCATES}</div>;
   }
 
   if (error) {
-    return <div>Error loading advocates: {error.message}</div>;
+    return toast.error(MESSAGES.ERROR.FETCH_ADVOCATES);
   }
 
   return (

@@ -22,6 +22,8 @@ export default function AdvocatesPagination({
 
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
+  //BASE OFF: https://medium.com/@enayetflweb/implementing-pagination-in-shadcn-ui-a-complete-guide-b7539e34908a
+
   return (
     <Pagination>
       <PaginationContent>

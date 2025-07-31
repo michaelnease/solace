@@ -10,8 +10,6 @@ export async function GET(request: Request) {
 
   const conditions: SQL[] = [];
 
-  console.log(yearsOfExperience, degree, search);
-
   if (yearsOfExperience) {
     const [min, max] =
       yearsOfExperience === "10+"
