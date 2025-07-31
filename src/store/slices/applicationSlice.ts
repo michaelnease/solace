@@ -1,4 +1,5 @@
 import { StateCreator } from "zustand";
+import { ENDPOINTS } from "@/lib/endpoints";
 
 export interface ApplicationSlice {
   name: string;
@@ -6,6 +7,7 @@ export interface ApplicationSlice {
 
   // Actions
   setHealth: (health: "healthy" | "degraded" | "unhealthy") => void;
+  fetchHealth: () => Promise<void>;
 }
 
 const initialState = {
@@ -14,11 +16,23 @@ const initialState = {
 };
 
 export const createApplicationSlice: StateCreator<ApplicationSlice> = (
-  set,
-  get,
-  store
+  set
 ) => ({
   ...initialState,
 
   setHealth: (health) => set({ health }),
+
+  fetchHealth: async () => {
+    try {
+      const response = await fetch(ENDPOINTS.HEALTH);
+      if (response.ok) {
+        const data = await response.json();
+        set({ health: data.status });
+      } else {
+        set({ health: "unhealthy" });
+      }
+    } catch (error) {
+      set({ health: "unhealthy" });
+    }
+  },
 });

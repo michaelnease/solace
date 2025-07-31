@@ -1,28 +1,22 @@
 import type { StoreState } from "../index";
 
-// Basic selectors
-export const selectAdvocatesNames = (state: StoreState) => state.names;
-export const selectAdvocatesCount = (state: StoreState) => state.names.length;
+// Filter selectors
+export const selectActiveFilters = (state: StoreState) => state.activeFilters;
+export const selectSearchTerm = (state: StoreState) => state.searchTerm;
 
 // Computed selectors
-export const selectAdvocatesInfo = (state: StoreState) => ({
-  names: state.names,
-  count: state.names.length,
-  isEmpty: state.names.length === 0,
-  hasNames: state.names.length > 0,
-});
+export const selectHasActiveFilters = (state: StoreState) =>
+  Object.keys(state.activeFilters).length > 0;
 
-export const selectAdvocateByName = (name: string) => (state: StoreState) =>
-  state.names.includes(name);
+export const selectFilterCount = (state: StoreState) =>
+  Object.keys(state.activeFilters).length;
 
-export const selectAdvocatesByFirstLetter =
-  (letter: string) => (state: StoreState) =>
-    state.names.filter((name) =>
-      name.toLowerCase().startsWith(letter.toLowerCase())
-    );
+export const selectIsSearching = (state: StoreState) =>
+  state.searchTerm.length > 0;
 
 // Action selectors
-export const selectAddName = (state: StoreState) => state.addName;
-export const selectRemoveName = (state: StoreState) => state.removeName;
-export const selectSetNames = (state: StoreState) => state.setNames;
-export const selectClearNames = (state: StoreState) => state.clearNames;
+export const selectSetFilter = (state: StoreState) => state.setFilter;
+export const selectClearFilter = (state: StoreState) => state.clearFilter;
+export const selectClearAllFilters = (state: StoreState) =>
+  state.clearAllFilters;
+export const selectSetSearchTerm = (state: StoreState) => state.setSearchTerm;

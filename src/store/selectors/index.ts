@@ -9,13 +9,13 @@ export {
 
 // Advocates selectors
 export {
-  selectAdvocatesNames,
-  selectAdvocatesCount,
-  selectAdvocatesInfo,
-  selectAdvocateByName,
-  selectAdvocatesByFirstLetter,
-  selectAddName,
-  selectRemoveName,
-  selectSetNames,
-  selectClearNames,
+  selectActiveFilters,
+  selectSearchTerm,
+  selectHasActiveFilters,
+  selectFilterCount,
+  selectIsSearching,
+  selectSetFilter,
+  selectClearFilter,
+  selectClearAllFilters,
+  selectSetSearchTerm,
 } from "./advocatesSelectors";

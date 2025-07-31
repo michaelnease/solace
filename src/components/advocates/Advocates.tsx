@@ -6,9 +6,11 @@ import { ENDPOINTS } from "@/lib/endpoints";
 import { MESSAGES } from "@/lib/messages";
 import { useStore } from "@/store";
 import AdvocatesTable from "./AdvocatesTable";
+import { selectActiveFilters, selectSearchTerm } from "@/store/selectors";
 
 export default function Advocates() {
-  const { activeFilters, searchTerm } = useStore();
+  const activeFilters = useStore(selectActiveFilters);
+  const searchTerm = useStore(selectSearchTerm);
 
   const {
     data: advocates,
