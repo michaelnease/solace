@@ -22,6 +22,8 @@ The app shows off:
 
 With the identified improvements in place, this would be a production-ready application fit for real-world use. You may want to move that Postgres call to an AWS Lambda before taking it big time, unless, of course, your dream is to debug SQL in production logs at 2 a.m. 😂
 
+👀 The UI components in `/src/components/ui` were generated using [shadcn/ui](https://ui.shadcn.com/), a handy tool for building consistent and reusable components 🪄
+
 ## Issues to Address
 
 ### **1. TypeScript Issues**
