@@ -6,6 +6,7 @@ import {
   selectApplicationName,
   selectApplicationHealth,
 } from "@/store/selectors";
+import { MESSAGES } from "@/lib/messages";
 
 export default function Header() {
   const applicationName = useStore(selectApplicationName);
@@ -27,7 +28,7 @@ export default function Header() {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold text-gray-900">
-            {applicationName || "Solace Advocates"}
+            {applicationName || MESSAGES.APPLICATION.NAME}
           </h1>
           <div className="flex items-center gap-2">
             <span className="text-sm text-gray-600">Status:</span>

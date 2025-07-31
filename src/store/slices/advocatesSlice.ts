@@ -17,11 +17,7 @@ const initialState = {
   activeFilters: {},
 };
 
-export const createAdvocatesSlice: StateCreator<AdvocatesSlice> = (
-  set,
-  get,
-  store
-) => ({
+export const createAdvocatesSlice: StateCreator<AdvocatesSlice> = (set) => ({
   ...initialState,
 
   setSearchTerm: (term) => {

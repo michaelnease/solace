@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { ENDPOINTS } from "@/lib/endpoints";
 import { MESSAGES } from "@/lib/messages";
 import { useStore } from "@/store";
-import AdvocatesTable from "./AdvocatesTable";
+import AdvocatesTable from "@/components/advocates/AdvocatesTable";
 import { selectActiveFilters, selectSearchTerm } from "@/store/selectors";
 
 export default function Advocates() {
@@ -56,9 +56,5 @@ export default function Advocates() {
     return toast.error(MESSAGES.ERROR.FETCH_ADVOCATES);
   }
 
-  return (
-    <div>
-      <AdvocatesTable advocates={advocates.data} />
-    </div>
-  );
+  return <AdvocatesTable advocates={advocates.data} />;
 }

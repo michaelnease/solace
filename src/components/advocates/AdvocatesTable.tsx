@@ -8,7 +8,7 @@ import {
   TableRow,
   Badge,
 } from "@/components/ui";
-import AdvocatesPagination from "./AdvocatesPagination";
+import AdvocatesPagination from "@/components/advocates/AdvocatesPagination";
 import type { Advocate } from "@/types/advocates";
 
 const ITEMS_PER_PAGE = 5;

@@ -1,18 +1,16 @@
 import { StateCreator } from "zustand";
+import { HealthStatus } from "@/types/application";
 import { ENDPOINTS } from "@/lib/endpoints";
 
 export interface ApplicationSlice {
   name: string;
-  health: "healthy" | "degraded" | "unhealthy";
-
-  // Actions
-  setHealth: (health: "healthy" | "degraded" | "unhealthy") => void;
+  health: HealthStatus;
   fetchHealth: () => Promise<void>;
 }
 
 const initialState = {
   name: "Solace Advocates",
-  health: "healthy" as const,
+  health: HealthStatus.HEALTHY,
 };
 
 export const createApplicationSlice: StateCreator<ApplicationSlice> = (
@@ -20,19 +18,16 @@ export const createApplicationSlice: StateCreator<ApplicationSlice> = (
 ) => ({
   ...initialState,
 
-  setHealth: (health) => set({ health }),
-
   fetchHealth: async () => {
     try {
       const response = await fetch(ENDPOINTS.HEALTH);
       if (response.ok) {
-        const data = await response.json();
-        set({ health: data.status });
+        set({ health: HealthStatus.HEALTHY });
       } else {
-        set({ health: "unhealthy" });
+        set({ health: HealthStatus.UNHEALTHY });
       }
     } catch (error) {
-      set({ health: "unhealthy" });
+      set({ health: HealthStatus.UNHEALTHY });
     }
   },
 });
