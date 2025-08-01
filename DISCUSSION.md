@@ -10,7 +10,7 @@ This project lays the groundwork for a advocates directory built with modern web
 
 The setup is clean, maintainable, and works well with React Query and Zustand. State is under control, concerns are well separated, and chaos has been (mostly) avoided.
 
-There’s still room for improvement. More tests wouldn’t hurt, server-side pagination would be a nice upgrade, and those lingering any types? Yeah, they know what they are. 🫣
+There’s still room for improvement. More tests wouldn’t hurt, server-side pagination would be a nice upgrade, and those lingering any types? Yeah, they know where they are. 🫣
 
 The app shows off:
 
@@ -20,7 +20,7 @@ The app shows off:
 - Real-time health monitoring
 - Efficient data fetching and caching
 
-With the identified improvements in place, this would be a production-ready application fit for real-world use. You may want to move that Postgres call to an AWS Lambda before taking it big time, unless, of course, your dream is to debug SQL in production logs at 2 a.m. 😂
+With the identified improvements in place, this would be a production-ready application fit for real-world use. You may want to move that Postgres call to an AWS Lambda before taking it big time. 😂
 
 👀 The UI components in `/src/components/ui` were generated using [shadcn/ui](https://ui.shadcn.com/), a handy tool for building consistent and reusable components 🪄
 
